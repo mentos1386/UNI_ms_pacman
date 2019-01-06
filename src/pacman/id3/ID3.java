@@ -113,7 +113,7 @@ public class ID3 {
         return gain;
     }
 
-    public static DataTuple[][] splitData(DataTuple[] tuples, Attribute attr) {
+    public static DataTuple[][] splitData(DataTuple[] tuples, ID3Attribute attribute) {
         DataTuple[][] splitData = DataTuple[][];
 
         for (int i = 0; i < attr.getNumberOfValues(); i++) {
@@ -121,6 +121,8 @@ public class ID3 {
         }
 
         ArrayList<String> attrValues = attr.getAttributeValues();
+
+
 
         for (int i = 0; i < attrValues.size(); i++) { // For all attribute values.
             for (int j = 0; j < tuples.size(); j++) { // For all tuples
@@ -134,4 +136,14 @@ public class ID3 {
         }
         return splitData;
     }
+
+    private int argumentToNumOfValues(ID3Attribute attribute) {
+        switch (attribute){
+            case powerpils:
+                return DataTuple.DiscreteTag.values().length;
+        }
+
+        return -1;
+    }
+
 }
