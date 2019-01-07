@@ -2,7 +2,7 @@ package pacman.id3;
 
 public class ID3Node {
     
-    private ArrayList<Node> children;
+    private ArrayList<ID3Node> children;
 	private ID3Attribute attribute = null;
 	private String branchName;
 	private String classLabel;
@@ -12,7 +12,7 @@ public class ID3Node {
 		branchName="";
 	}
 
-	public ArrayList<Node> getChildrenNodes() {
+	public ArrayList<ID3Node> getChildrenNodes() {
 		return children;
 	}
 
@@ -21,10 +21,10 @@ public class ID3Node {
 	}
 	
 	public void addChildNode(ID3Node node) {
-		childrenNodes.add(node);
+		children.add(node);
 	}
 
-	public Attribute getAttribute() {
+	public ID3Attribute getAttribute() {
 		return attribute;
 	}
 
