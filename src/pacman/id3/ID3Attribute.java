@@ -1,5 +1,14 @@
 package pacman.id3;
 
 public enum ID3Attribute {
-    powerpils,
+	DirectionChosen,
+	pacmanPosition,
+	blinkyDist,
+	inkyDist,
+	pinkyDist,
+	sueDist,
+	blinkyDir,
+	inkyDir,
+	pinkyDir,
+	sueDir
 }
