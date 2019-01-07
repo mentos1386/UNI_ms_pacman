@@ -110,8 +110,6 @@ public class DataTuple {
 	}
 
 	public DataTuple(String data) {
-		System.out.println(data);
-
 		String[] dataSplit = data.split(";");
 
 		this.DirectionChosen = MOVE.valueOf(dataSplit[0]);

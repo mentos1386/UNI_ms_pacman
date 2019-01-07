@@ -4,12 +4,6 @@ import pacman.controllers.*;
 import pacman.game.Game;
 import pacman.game.Constants.MOVE;
 
-/**
- * The DataCollectorHumanController class is used to collect training data from playing PacMan.
- * Data about game state and what MOVE chosen is saved every time getMove is called.
- * @author andershh
- *
- */
 public class ID3DataCollectorController extends HumanController{
 
     private boolean training;

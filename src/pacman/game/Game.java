@@ -1769,9 +1769,7 @@ public final class Game
 
 	public MOVE getMoveAwayFromThreat(GHOST closestGhost) {
 		int currentPacmanNodeIndex = getPacmanCurrentNodeIndex();
-		int closestGhostNodeIndex = 0;
-
-		closestGhostNodeIndex = getGhostCurrentNodeIndex(closestGhost);
+		int closestGhostNodeIndex = getGhostCurrentNodeIndex(closestGhost);
 
 		return getApproximateNextMoveAwayFromTarget(currentPacmanNodeIndex, closestGhostNodeIndex, this.getPacmanLastMoveMade(), DM.PATH);
 	}

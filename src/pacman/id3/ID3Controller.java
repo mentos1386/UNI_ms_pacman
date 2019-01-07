@@ -29,6 +29,9 @@ public class ID3Controller extends Controller<Constants.MOVE> {
         attributes.add(ID3Attribute.DIRECTION_TO_CLOSEST_PIL);
         attributes.add(ID3Attribute.DIRECTION_TO_CLOSEST_POWER_PIL);
         attributes.add(ID3Attribute.MOVE_AWAY_FROM_THREAT);
+        attributes.add(ID3Attribute.IS_GHOST_CLOSE);
+        attributes.add(ID3Attribute.IS_POWER_PIL_CLOSE);
+        attributes.add(ID3Attribute.DISTANCE_TO_CLOSEST_GHOST);
 
         rootNode = ID3.buildTree(trainingTuples, attributes);
 

@@ -5,11 +5,6 @@ public enum ID3Attribute {
 	DirectionChosen,
 	pacmanPosition,
 
-	blinkyDist,
-	inkyDist,
-	pinkyDist,
-	sueDist,
-
 	BLINKY_DIST,
 	INKY_DIST,
 	PINKY_DIST,
@@ -22,5 +17,11 @@ public enum ID3Attribute {
 
 	DIRECTION_TO_CLOSEST_PIL,
 	DIRECTION_TO_CLOSEST_POWER_PIL,
+
 	MOVE_AWAY_FROM_THREAT,
+
+	DISTANCE_TO_CLOSEST_GHOST,
+
+	IS_GHOST_CLOSE,
+	IS_POWER_PIL_CLOSE,
 }

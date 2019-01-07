@@ -14,6 +14,7 @@ import pacman.controllers.Controller;
 import pacman.controllers.HumanController;
 import pacman.controllers.KeyBoardInput;
 import pacman.controllers.examples.StarterPacMan;
+import pacman.id3.ID3AutomatedDataCollectorController;
 import pacman.id3.ID3Controller;
 import pacman.controllers.examples.StarterGhosts;
 import pacman.game.Game;
@@ -81,10 +82,9 @@ public class Executor
 		//exec.runGameTimed(new DataCollectorController(new KeyBoardInput()),new StarterGhosts(),visual);
 
 		// Store Training Data
-		//exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), true), new StarterGhosts(), visual);
-		//exec.runGameTimed(new ID3DataCollectorController(new StarterPacMan(), true), new StarterGhosts(), visual);
+		exec.runExperiment(new ID3AutomatedDataCollectorController(true), new StarterGhosts(), 5);
 		// Store Testing Data
-		//exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), false), new StarterGhosts(), visual);
+		exec.runExperiment(new ID3AutomatedDataCollectorController(false), new StarterGhosts(), 20);
 		// Run AI
 		exec.runGameTimed(new ID3Controller(),new StarterGhosts(),visual);
 	}

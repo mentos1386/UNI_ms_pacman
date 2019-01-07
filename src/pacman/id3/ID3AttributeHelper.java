@@ -1,6 +1,5 @@
 package pacman.id3;
 
-import com.sun.tools.internal.jxc.ap.Const;
 import pacman.game.Constants;
 
 public class ID3AttributeHelper {
@@ -12,6 +11,8 @@ public class ID3AttributeHelper {
             case IS_INKY_EDIBLE:
             case IS_PINKY_EDIBLE:
             case IS_BLINKY_EDIBLE:
+            case IS_GHOST_CLOSE:
+            case IS_POWER_PIL_CLOSE:
                 return 2;
 
             // Discrete tags
@@ -19,14 +20,15 @@ public class ID3AttributeHelper {
             case INKY_DIST:
             case PINKY_DIST:
             case SUE_DIST:
+            case DISTANCE_TO_CLOSEST_GHOST:
                 return ID3DataTuple.DiscreteTag.values().length;
 
             // Moves
             case DIRECTION_TO_CLOSEST_PIL:
             case DIRECTION_TO_CLOSEST_POWER_PIL:
-                return Constants.MOVE.values().length;
             case MOVE_AWAY_FROM_THREAT:
                 return Constants.MOVE.values().length;
+
             default:
                 return 0;
         }
@@ -41,6 +43,8 @@ public class ID3AttributeHelper {
             case IS_INKY_EDIBLE:
             case IS_PINKY_EDIBLE:
             case IS_BLINKY_EDIBLE:
+            case IS_GHOST_CLOSE:
+            case IS_POWER_PIL_CLOSE:
                 values[0] = String.valueOf(true);
                 values[1] = String.valueOf(false);
                 return values;
@@ -50,15 +54,15 @@ public class ID3AttributeHelper {
             case INKY_DIST:
             case PINKY_DIST:
             case SUE_DIST:
+            case DISTANCE_TO_CLOSEST_GHOST:
                 return ID3DataTuple.DiscreteTag.values();
 
             // Moves
             case DIRECTION_TO_CLOSEST_PIL:
             case DIRECTION_TO_CLOSEST_POWER_PIL:
-                return Constants.MOVE.values();
-
             case MOVE_AWAY_FROM_THREAT:
                 return Constants.MOVE.values();
+
             default:
                 return values;
         }
@@ -75,6 +79,10 @@ public class ID3AttributeHelper {
                 return String.valueOf(dataTuple.isPinkyEdible);
             case IS_BLINKY_EDIBLE:
                 return String.valueOf(dataTuple.isBlinkyEdible);
+            case IS_GHOST_CLOSE:
+                return String.valueOf(dataTuple.isGhostClose);
+            case IS_POWER_PIL_CLOSE:
+                return String.valueOf(dataTuple.isPowerPilClose);
 
             case BLINKY_DIST:
                 return dataTuple.discretizeDistance(dataTuple.blinkyDist);
@@ -84,6 +92,8 @@ public class ID3AttributeHelper {
                 return dataTuple.discretizeDistance(dataTuple.pinkyDist);
             case SUE_DIST:
                 return dataTuple.discretizeDistance(dataTuple.sueDist);
+            case DISTANCE_TO_CLOSEST_GHOST:
+                return dataTuple.discretizeDistance(dataTuple.distanceToClosestGhost);
 
             // Moves
             case DIRECTION_TO_CLOSEST_PIL:
