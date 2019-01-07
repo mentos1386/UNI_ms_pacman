@@ -27,6 +27,7 @@ public class DataTuple {
 
 	public MOVE DirectionChosen;
 
+
 	// General game state this - not normalized!
 	public int mazeIndex;
 	public int currentLevel;
@@ -37,6 +38,7 @@ public class DataTuple {
 	public int currentLevelTime;
 	public int numOfPillsLeft;
 	public int numOfPowerPillsLeft;
+
 
 	// Ghost this, dir, dist, edible - BLINKY, INKY, PINKY, SUE
 	public boolean isBlinkyEdible = false;
@@ -108,6 +110,8 @@ public class DataTuple {
 	}
 
 	public DataTuple(String data) {
+		System.out.println(data);
+
 		String[] dataSplit = data.split(";");
 
 		this.DirectionChosen = MOVE.valueOf(dataSplit[0]);
@@ -166,6 +170,7 @@ public class DataTuple {
 		stringbuilder.append(this.numberOfNodesInLevel + ";");
 		stringbuilder.append(this.numberOfTotalPillsInLevel + ";");
 		stringbuilder.append(this.numberOfTotalPowerPillsInLevel + ";");
+
 
 		return stringbuilder.toString();
 	}

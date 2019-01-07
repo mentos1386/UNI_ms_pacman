@@ -13,6 +13,7 @@ import java.util.Random;
 import pacman.controllers.Controller;
 import pacman.controllers.HumanController;
 import pacman.controllers.KeyBoardInput;
+import pacman.controllers.examples.StarterPacMan;
 import pacman.id3.ID3Controller;
 import pacman.controllers.examples.StarterGhosts;
 import pacman.game.Game;
@@ -81,6 +82,7 @@ public class Executor
 
 		// Store Training Data
 		//exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), true), new StarterGhosts(), visual);
+		//exec.runGameTimed(new ID3DataCollectorController(new StarterPacMan(), true), new StarterGhosts(), visual);
 		// Store Testing Data
 		//exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), false), new StarterGhosts(), visual);
 		// Run AI

@@ -1,5 +1,6 @@
 package pacman.id3;
 
+import com.sun.tools.internal.jxc.ap.Const;
 import pacman.game.Constants;
 
 public class ID3AttributeHelper {
@@ -24,7 +25,8 @@ public class ID3AttributeHelper {
             case DIRECTION_TO_CLOSEST_PIL:
             case DIRECTION_TO_CLOSEST_POWER_PIL:
                 return Constants.MOVE.values().length;
-
+            case MOVE_AWAY_FROM_THREAT:
+                return Constants.MOVE.values().length;
             default:
                 return 0;
         }
@@ -55,6 +57,8 @@ public class ID3AttributeHelper {
             case DIRECTION_TO_CLOSEST_POWER_PIL:
                 return Constants.MOVE.values();
 
+            case MOVE_AWAY_FROM_THREAT:
+                return Constants.MOVE.values();
             default:
                 return values;
         }
@@ -86,6 +90,8 @@ public class ID3AttributeHelper {
                 return dataTuple.directionToClosestPil;
             case DIRECTION_TO_CLOSEST_POWER_PIL:
                 return dataTuple.directionToClosestPowerPil;
+            case MOVE_AWAY_FROM_THREAT:
+                return dataTuple.getMoveAwayFromThreat;
 
             default:
                 return null;
