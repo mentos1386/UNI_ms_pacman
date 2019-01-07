@@ -1,5 +1,6 @@
 package pacman.game;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.EnumMap;
 import java.util.Random;
@@ -1665,4 +1666,132 @@ public final class Game
 
 		return caches[mazeIndex].getPathDistanceFromA2B(fromNodeIndex,toNodeIndex,lastMoveMade);
 	}
+
+
+	public MOVE directionToClosesPill() {
+		int current = getPacmanCurrentNodeIndex();
+
+		int[] pills = getPillIndices();
+		int[] powerPills = getPowerPillIndices();
+
+		ArrayList<Integer> targets = new ArrayList<Integer>();
+
+		for (int i=0; i<pills.length; i++) //check which pills are available
+			if(isPillStillAvailable(i))
+				targets.add(pills[i]);
+
+		for (int i=0; i<powerPills.length; i++)	//check with power pills are available
+			if (isPowerPillStillAvailable(i))
+				targets.add(powerPills[i]);
+
+		int[] targetsArray = new int[targets.size()]; //convert from ArrayList to array
+
+		for (int i=0; i<targetsArray.length; i++)
+			targetsArray[i] = targets.get(i);
+
+		//return the next direction once the closest target has been identified
+		return getNextMoveTowardsTarget(current, getClosestNodeIndexFromNodeIndex(current,targetsArray,DM.PATH),DM.PATH);
+	}
+
+	public MOVE directionToClosestPowerPill() {
+		int current=getPacmanCurrentNodeIndex();
+
+		int[] powerPills=getPowerPillIndices();
+
+		ArrayList<Integer> targets=new ArrayList<Integer>();
+
+		for (int i=0; i<powerPills.length; i++)	//check with power pills are available
+			if (isPowerPillStillAvailable(i))
+				targets.add(powerPills[i]);
+
+		int[] targetsArray = new int[targets.size()]; //convert from ArrayList to array
+
+		for (int i=0; i<targetsArray.length; i++)
+			targetsArray[i] = targets.get(i);
+
+
+		if (targetsArray.length == 0) return this.getPacmanLastMoveMade();
+
+		//return the next direction once the closest target has been identified
+		return getNextMoveTowardsTarget(current, getClosestNodeIndexFromNodeIndex(current, targetsArray, DM.PATH), DM.PATH);
+	}
+
+	public boolean isGhostClose(int distTolerance) {
+		int current = getPacmanCurrentNodeIndex();
+		boolean isGhostClose = false;
+
+		for (GHOST ghost : GHOST.values()) {
+			if (getGhostEdibleTime(ghost)==0 && getGhostLairTime(ghost)==0) {
+                if (getShortestPathDistance(current, getGhostCurrentNodeIndex(ghost)) < distTolerance) {
+                    isGhostClose = true;
+                    break;
+                }
+            }
+		}
+
+		return isGhostClose;
+	}
+
+    public boolean isPowerPillClose(int distTolerance) {
+        int currentPacmanNodeIndex = getPacmanCurrentNodeIndex();
+        int[] ppIndices = getActivePowerPillsIndices();
+
+        if (ppIndices.length==0) {
+            return false;
+        }
+
+        for (int i = 0; i < ppIndices.length; i++) {
+            int tempDistance = getShortestPathDistance(currentPacmanNodeIndex,ppIndices[i]);
+            if (tempDistance <= distTolerance) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+	public GHOST closestGhost() {
+		int current=getPacmanCurrentNodeIndex();
+		int currentClosest = Integer.MAX_VALUE;
+		GHOST closestGhost = GHOST.BLINKY;
+
+		for (GHOST ghost : GHOST.values()) {
+			if (getGhostEdibleTime(ghost)==0 && getGhostLairTime(ghost)==0) {
+				int tempDistance = getShortestPathDistance(current, getGhostCurrentNodeIndex(ghost));
+				if (tempDistance < currentClosest) {
+					closestGhost = ghost;
+					currentClosest = tempDistance;
+				}
+			}
+		}
+
+		return closestGhost;
+	}
+
+	public MOVE getMoveAwayFromThreat(GHOST closestGhost) {
+		int currentPacmanNodeIndex = getPacmanCurrentNodeIndex();
+		int closestGhostNodeIndex = 0;
+
+		closestGhostNodeIndex = getGhostCurrentNodeIndex(closestGhost);
+
+		return getApproximateNextMoveAwayFromTarget(currentPacmanNodeIndex, closestGhostNodeIndex, this.getPacmanLastMoveMade(), DM.PATH);
+	}
+
+
+
+	public int distanceToClosestGhost() {
+		int currentPacmanNodeIndex = getPacmanCurrentNodeIndex();
+		int currentClosest = Integer.MAX_VALUE;
+
+		for (GHOST ghost : GHOST.values()) {
+			if (getGhostEdibleTime(ghost)==0 && getGhostLairTime(ghost)==0) {
+				int tempDistance = getShortestPathDistance(currentPacmanNodeIndex, getGhostCurrentNodeIndex(ghost));
+				if (tempDistance<currentClosest) {
+					currentClosest = tempDistance;
+				}
+			}
+		}
+
+		return currentClosest;
+	}
+
 }
