@@ -12,24 +12,19 @@ import pacman.game.Constants.MOVE;
  * @author andershh
  *
  */
-public class DataCollectorController extends HumanController{
+public class DataCollectorController extends HumanController {
 
-	private boolean training;
-
-	public DataCollectorController(KeyBoardInput input, boolean training){
+	public DataCollectorController(KeyBoardInput input){
 		super(input);
-		this.training = training;
 	}
-	
+
 	@Override
 	public MOVE getMove(Game game, long dueTime) {
 		MOVE move = super.getMove(game, dueTime);
-		
+
 		DataTuple data = new DataTuple(game, move);
 
-		if (training) DataSaverLoader.SavePacManTrainingData(data);
-		else DataSaverLoader.SavePacManTestData(data);
-
+		DataSaverLoader.SavePacManData(data);
 		return move;
 	}
 

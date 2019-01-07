@@ -10,23 +10,14 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Random;
 
-import dataRecording.DataCollectorController;
 import pacman.controllers.Controller;
 import pacman.controllers.HumanController;
-import pacman.controllers.ID3Controller;
 import pacman.controllers.KeyBoardInput;
-import pacman.controllers.examples.AggressiveGhosts;
-import pacman.controllers.examples.Legacy;
-import pacman.controllers.examples.Legacy2TheReckoning;
-import pacman.controllers.examples.NearestPillPacMan;
-import pacman.controllers.examples.NearestPillPacManVS;
-import pacman.controllers.examples.RandomGhosts;
-import pacman.controllers.examples.RandomNonRevPacMan;
-import pacman.controllers.examples.RandomPacMan;
+import pacman.id3.ID3Controller;
 import pacman.controllers.examples.StarterGhosts;
-import pacman.controllers.examples.StarterPacMan;
 import pacman.game.Game;
 import pacman.game.GameView;
+import pacman.id3.ID3DataCollectorController;
 
 import static pacman.game.Constants.*;
 
@@ -89,9 +80,9 @@ public class Executor
 		//exec.runGameTimed(new DataCollectorController(new KeyBoardInput()),new StarterGhosts(),visual);
 
 		// Store Training Data
-		//exec.runGameTimed(new DataCollectorController(new KeyBoardInput(), true), new StarterGhosts(), visual);
+		//exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), true), new StarterGhosts(), visual);
 		// Store Testing Data
-		//exec.runGameTimed(new DataCollectorController(new KeyBoardInput(), false), new StarterGhosts(), visual);
+		//exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), false), new StarterGhosts(), visual);
 		// Run AI
 		exec.runGameTimed(new ID3Controller(),new StarterGhosts(),visual);
 	}

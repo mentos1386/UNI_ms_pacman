@@ -1,6 +1,5 @@
 package pacman.id3;
 
-import dataRecording.DataTuple;
 import pacman.game.Constants;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class ID3 {
      *
      * return N ;
      */
-    public static ID3Node buildTree(DataTuple[] tuples, ArrayList<ID3Attribute> attributes) {
+    public static ID3Node buildTree(ID3DataTuple[] tuples, ArrayList<ID3Attribute> attributes) {
         ID3Node node = new ID3Node();
 
         Constants.MOVE majorityClass = getMajorityClassInList(tuples);
@@ -52,7 +51,7 @@ public class ID3 {
 
         attributes.remove(attribute);
 
-        ArrayList<ArrayList<DataTuple>> splitData = splitData(tuples, attribute);
+        ArrayList<ArrayList<ID3DataTuple>> splitData = splitData(tuples, attribute);
         for (int i = 0; i < splitData.size(); i++) {
             ID3Node childNode = new ID3Node();
 
@@ -61,7 +60,7 @@ public class ID3 {
             }
 
             else {
-                childNode = buildTree(splitData.get(i).toArray(new DataTuple[0]), attributes);
+                childNode = buildTree(splitData.get(i).toArray(new ID3DataTuple[0]), attributes);
             }
             childNode.setBranchName(ID3AttributeHelper.values(attribute)[i]);
             node.addChildNode(childNode);
@@ -69,7 +68,7 @@ public class ID3 {
         return node;
     }
 
-    public static boolean doTuplesHaveSameClass(DataTuple[] tuples) {
+    public static boolean doTuplesHaveSameClass(ID3DataTuple[] tuples) {
         for (int i = 0; i < tuples.length - 1; i++) {
             if (!(tuples[i].DirectionChosen.equals(tuples[i + 1].DirectionChosen))) {
                 return false;
@@ -78,10 +77,10 @@ public class ID3 {
         return true;
     }
 
-    public static int[] getLabelFrequency(DataTuple[] tuples) {
+    public static int[] getLabelFrequency(ID3DataTuple[] tuples) {
         int[] counter = new int[Constants.MOVE.values().length];
 
-        for (DataTuple tuple : tuples) {
+        for (ID3DataTuple tuple : tuples) {
             for (int j = 0; j < Constants.MOVE.values().length; j++) {
                 if (tuple.DirectionChosen.equals(Constants.MOVE.values()[j])) {
                     counter[j]++;
@@ -92,7 +91,7 @@ public class ID3 {
         return counter;
     }
 
-    public static Constants.MOVE getMajorityClassInList(DataTuple[] tuples) {
+    public static Constants.MOVE getMajorityClassInList(ID3DataTuple[] tuples) {
         int[] counter = getLabelFrequency(tuples);
         int max = counter[0];
         int index = 0;
@@ -105,12 +104,14 @@ public class ID3 {
         return Constants.MOVE.values()[index];
     }
 
-    public static double[] getLableRatios(DataTuple[] tuples) {
+    public static double[] getLabelRatios(ID3DataTuple[] tuples) {
         double[] labelRatios = new double[Constants.MOVE.values().length];
         int[] counter = getLabelFrequency(tuples);
+
         for (int i = 0; i < Constants.MOVE.values().length; i++) {
             labelRatios[i] = (double) counter[i] / tuples.length;
         }
+
         return labelRatios;
     }
 
@@ -122,14 +123,15 @@ public class ID3 {
         return entropy;
     }
 
-    public static double informationGain(DataTuple[] tuples, ID3Attribute attribute) {
+    public static double informationGain(ID3DataTuple[] tuples, ID3Attribute attribute) {
         double gain = 0;
 
-        gain = calculateEntropy(getLableRatios(tuples));
-        ArrayList<ArrayList<DataTuple>> splitData = splitData(tuples, attribute);
+        gain = calculateEntropy(getLabelRatios(tuples));
+
+        ArrayList<ArrayList<ID3DataTuple>> splitData = splitData(tuples, attribute);
 
         for (int i = 0; i < ID3AttributeHelper.getNumOfValues(attribute); i++) {
-            DataTuple[] splitDataTuples = splitData.get(i).toArray(new DataTuple[0]);
+            ID3DataTuple[] splitDataTuples = splitData.get(i).toArray(new ID3DataTuple[0]);
 
             double subSetSize = splitDataTuples.length;
 
@@ -137,24 +139,24 @@ public class ID3 {
 
             double setSize = tuples.length;
 
-            gain -= (subSetSize / setSize) * calculateEntropy(getLableRatios(splitDataTuples));
+            gain -= (subSetSize / setSize) * calculateEntropy(getLabelRatios(splitDataTuples));
         }
 
         return gain;
     }
 
 
-    public static ArrayList<ArrayList<DataTuple>> splitData(DataTuple[] tuples, ID3Attribute attribute) {
-        ArrayList<ArrayList<DataTuple>> splitData = new ArrayList<>();
+    public static ArrayList<ArrayList<ID3DataTuple>> splitData(ID3DataTuple[] tuples, ID3Attribute attribute) {
+        ArrayList<ArrayList<ID3DataTuple>> splitData = new ArrayList<>();
 
         for (int i = 0; i < ID3AttributeHelper.getNumOfValues(attribute); i++) {
-            splitData.add(new ArrayList<DataTuple>());
+            splitData.add(new ArrayList<ID3DataTuple>());
         }
 
         Object[] attrValues = ID3AttributeHelper.values(attribute);
 
         for (int i = 0; i < ID3AttributeHelper.getNumOfValues(attribute); i++) { // For all attribute values.
-            for (DataTuple tempTuple : tuples) { // For all tuples
+            for (ID3DataTuple tempTuple : tuples) { // For all tuples
                 if (attrValues[i].equals(ID3AttributeHelper.valueFromDataTuple(attribute, tempTuple))) { // if a certain attr
                     // value equals the one
                     // found in the tuple.
@@ -166,7 +168,7 @@ public class ID3 {
         return splitData;
     }
 
-    public static ID3Attribute attributeSelection(DataTuple[] tuples, ArrayList<ID3Attribute> attributes) {
+    public static ID3Attribute attributeSelection(ID3DataTuple[] tuples, ArrayList<ID3Attribute> attributes) {
         double best = 0;
         double current = 0;
         ID3Attribute attribute = attributes.get(0);

@@ -6,7 +6,7 @@ import dataRecording.DataTuple;
 public class DataTester {
 
 	public static void main(String... args) {
-		DataTuple[] tuples = DataSaverLoader.LoadPacManTrainingData();
+		DataTuple[] tuples = DataSaverLoader.LoadPacManData();
 		int counter = 0;
 		for (DataTuple d : tuples) {
 			System.out.println("Normal: "+d.getSaveString());

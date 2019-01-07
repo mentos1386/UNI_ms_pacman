@@ -1,7 +1,5 @@
 package pacman.id3;
 
-import dataRecording.DataTuple;
-
 public class ID3AttributeHelper {
 
     public static int getNumOfValues(ID3Attribute attribute) {
@@ -18,7 +16,7 @@ public class ID3AttributeHelper {
             case INKY_DIST:
             case PINKY_DIST:
             case SUE_DIST:
-                return DataTuple.DiscreteTag.values().length;
+                return ID3DataTuple.DiscreteTag.values().length;
 
             default:
                 return 0;
@@ -43,14 +41,14 @@ public class ID3AttributeHelper {
             case INKY_DIST:
             case PINKY_DIST:
             case SUE_DIST:
-                return DataTuple.DiscreteTag.values();
+                return ID3DataTuple.DiscreteTag.values();
 
             default:
                 return values;
         }
     }
 
-    public static Object valueFromDataTuple(ID3Attribute attribute, DataTuple dataTuple) {
+    public static Object valueFromDataTuple(ID3Attribute attribute, ID3DataTuple dataTuple) {
         switch (attribute) {
             // Booleans need to be as strings
             case IS_SUE_EDIBLE:

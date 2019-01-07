@@ -1,13 +1,8 @@
-package pacman.controllers;
+package pacman.id3;
 
-import dataRecording.DataSaverLoader;
-import dataRecording.DataTuple;
+import pacman.controllers.Controller;
 import pacman.game.Constants;
 import pacman.game.Game;
-import pacman.id3.ID3;
-import pacman.id3.ID3Attribute;
-import pacman.id3.ID3AttributeHelper;
-import pacman.id3.ID3Node;
 
 import java.util.ArrayList;
 
@@ -19,8 +14,8 @@ public class ID3Controller extends Controller<Constants.MOVE> {
         super();
 
         //Initialize tuples- and attributeList.
-        DataTuple[] trainingTuples = DataSaverLoader.LoadPacManTrainingData();
-        DataTuple[] testTuples = DataSaverLoader.LoadPacManTestData();
+        ID3DataTuple[] trainingTuples = ID3DataSaverLoader.LoadPacManTrainingData();
+        ID3DataTuple[] testTuples = ID3DataSaverLoader.LoadPacManTestData();
 
         ArrayList<ID3Attribute> attributes = new ArrayList<>();
         attributes.add(ID3Attribute.IS_BLINKY_EDIBLE);
@@ -40,7 +35,7 @@ public class ID3Controller extends Controller<Constants.MOVE> {
         int totalSize = testTuples.length;
         int correctCounter = 0;
 
-        for (DataTuple testTuple : testTuples) {
+        for (ID3DataTuple testTuple : testTuples) {
             Constants.MOVE prediction = predictClassLabel(rootNode, testTuple);
             if (prediction.equals(testTuple.DirectionChosen)) {
                 correctCounter++;
@@ -51,7 +46,7 @@ public class ID3Controller extends Controller<Constants.MOVE> {
     }
 
 
-    private Constants.MOVE predictClassLabel(ID3Node node, DataTuple tuple) {
+    private Constants.MOVE predictClassLabel(ID3Node node, ID3DataTuple tuple) {
         Constants.MOVE prediction = Constants.MOVE.NEUTRAL;
 
         if (node.getChildrenNodes().isEmpty()) return node.getClassLabel();
@@ -75,7 +70,7 @@ public class ID3Controller extends Controller<Constants.MOVE> {
 
     public Constants.MOVE getMove(Game game, long timeDue) {
 
-        DataTuple tuple = new DataTuple(game, pacManMove);
+        ID3DataTuple tuple = new ID3DataTuple(game, pacManMove);
 
         return predictClassLabel(rootNode, tuple);
     }
