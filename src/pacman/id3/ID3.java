@@ -49,7 +49,6 @@ public class ID3 {
 
         node.setAttribute(attribute);
 
-        attributes.remove(attribute);
 
         ArrayList<ArrayList<ID3DataTuple>> splitData = splitData(tuples, attribute);
         for (int i = 0; i < splitData.size(); i++) {
@@ -60,7 +59,9 @@ public class ID3 {
             }
 
             else {
+                attributes.remove(attribute);
                 childNode = buildTree(splitData.get(i).toArray(new ID3DataTuple[0]), attributes);
+                attributes.add(attribute);
             }
             childNode.setBranchName(ID3AttributeHelper.values(attribute)[i]);
             node.addChildNode(childNode);
@@ -155,11 +156,9 @@ public class ID3 {
 
         Object[] attrValues = ID3AttributeHelper.values(attribute);
 
-        for (int i = 0; i < ID3AttributeHelper.getNumOfValues(attribute); i++) { // For all attribute values.
-            for (ID3DataTuple tempTuple : tuples) { // For all tuples
-                if (attrValues[i].equals(ID3AttributeHelper.valueFromDataTuple(attribute, tempTuple))) { // if a certain attr
-                    // value equals the one
-                    // found in the tuple.
+        for (int i = 0; i < ID3AttributeHelper.getNumOfValues(attribute); i++) {
+            for (ID3DataTuple tempTuple : tuples) {
+                if (attrValues[i].equals(ID3AttributeHelper.valueFromDataTuple(attribute, tempTuple))) {
                     splitData.get(i).add(tempTuple);
                 }
             }
