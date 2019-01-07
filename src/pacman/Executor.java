@@ -13,6 +13,7 @@ import java.util.Random;
 import dataRecording.DataCollectorController;
 import pacman.controllers.Controller;
 import pacman.controllers.HumanController;
+import pacman.controllers.ID3Controller;
 import pacman.controllers.KeyBoardInput;
 import pacman.controllers.examples.AggressiveGhosts;
 import pacman.controllers.examples.Legacy;
@@ -85,7 +86,14 @@ public class Executor
 		 */
 		
 		//run game for data collection
-		exec.runGameTimed(new DataCollectorController(new KeyBoardInput()),new StarterGhosts(),visual);
+		//exec.runGameTimed(new DataCollectorController(new KeyBoardInput()),new StarterGhosts(),visual);
+
+		// Store Training Data
+		//exec.runGameTimed(new DataCollectorController(new KeyBoardInput(), true), new StarterGhosts(), visual);
+		// Store Testing Data
+		//exec.runGameTimed(new DataCollectorController(new KeyBoardInput(), false), new StarterGhosts(), visual);
+		// Run AI
+		exec.runGameTimed(new ID3Controller(),new StarterGhosts(),visual);
 	}
 	
     /**

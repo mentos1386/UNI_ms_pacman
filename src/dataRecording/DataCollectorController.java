@@ -13,9 +13,12 @@ import pacman.game.Constants.MOVE;
  *
  */
 public class DataCollectorController extends HumanController{
-	
-	public DataCollectorController(KeyBoardInput input){
+
+	private boolean training;
+
+	public DataCollectorController(KeyBoardInput input, boolean training){
 		super(input);
+		this.training = training;
 	}
 	
 	@Override
@@ -23,8 +26,10 @@ public class DataCollectorController extends HumanController{
 		MOVE move = super.getMove(game, dueTime);
 		
 		DataTuple data = new DataTuple(game, move);
-				
-		DataSaverLoader.SavePacManData(data);		
+
+		if (training) DataSaverLoader.SavePacManTrainingData(data);
+		else DataSaverLoader.SavePacManTestData(data);
+
 		return move;
 	}
 
