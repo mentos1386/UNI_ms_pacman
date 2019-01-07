@@ -26,6 +26,8 @@ public class ID3Controller extends Controller<Constants.MOVE> {
         attributes.add(ID3Attribute.INKY_DIST);
         attributes.add(ID3Attribute.PINKY_DIST);
         attributes.add(ID3Attribute.SUE_DIST);
+        attributes.add(ID3Attribute.DIRECTION_TO_CLOSEST_PIL);
+        attributes.add(ID3Attribute.DIRECTION_TO_CLOSEST_POWER_PIL);
 
         rootNode = ID3.buildTree(trainingTuples, attributes);
 
@@ -61,8 +63,6 @@ public class ID3Controller extends Controller<Constants.MOVE> {
                 break;
             }
         }
-
-        System.out.println(prediction);
 
         return prediction;
     }

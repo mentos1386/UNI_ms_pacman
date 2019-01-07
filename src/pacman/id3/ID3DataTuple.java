@@ -6,8 +6,8 @@ import pacman.game.Game;
 
 public class ID3DataTuple extends DataTuple {
 
-    private Constants.MOVE directionToClosestPil;
-    private Constants.MOVE directionToClosestPowerPil;
+    public Constants.MOVE directionToClosestPil;
+    public Constants.MOVE directionToClosestPowerPil;
 
     public ID3DataTuple(Game game, Constants.MOVE move) {
         super(game, move);

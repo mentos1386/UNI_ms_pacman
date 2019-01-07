@@ -1,5 +1,7 @@
 package pacman.id3;
 
+import pacman.game.Constants;
+
 public class ID3AttributeHelper {
 
     public static int getNumOfValues(ID3Attribute attribute) {
@@ -17,6 +19,11 @@ public class ID3AttributeHelper {
             case PINKY_DIST:
             case SUE_DIST:
                 return ID3DataTuple.DiscreteTag.values().length;
+
+            // Moves
+            case DIRECTION_TO_CLOSEST_PIL:
+            case DIRECTION_TO_CLOSEST_POWER_PIL:
+                return Constants.MOVE.values().length;
 
             default:
                 return 0;
@@ -43,6 +50,11 @@ public class ID3AttributeHelper {
             case SUE_DIST:
                 return ID3DataTuple.DiscreteTag.values();
 
+            // Moves
+            case DIRECTION_TO_CLOSEST_PIL:
+            case DIRECTION_TO_CLOSEST_POWER_PIL:
+                return Constants.MOVE.values();
+
             default:
                 return values;
         }
@@ -68,6 +80,12 @@ public class ID3AttributeHelper {
                 return dataTuple.discretizeDistance(dataTuple.pinkyDist);
             case SUE_DIST:
                 return dataTuple.discretizeDistance(dataTuple.sueDist);
+
+            // Moves
+            case DIRECTION_TO_CLOSEST_PIL:
+                return dataTuple.directionToClosestPil;
+            case DIRECTION_TO_CLOSEST_POWER_PIL:
+                return dataTuple.directionToClosestPowerPil;
 
             default:
                 return null;
