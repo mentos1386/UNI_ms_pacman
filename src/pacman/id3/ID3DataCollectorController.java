@@ -17,7 +17,9 @@ public class ID3DataCollectorController extends HumanController{
     public MOVE getMove(Game game, long dueTime) {
         MOVE move = super.getMove(game, dueTime);
 
-        ID3DataTuple data = new ID3DataTuple(game, move);
+        ID3Label label = ID3LabelHelper.fromGameAndMove(game, move);
+
+        ID3DataTuple data = new ID3DataTuple(game, move, label);
 
         if (training) ID3DataSaverLoader.SavePacManTrainingData(data);
         else ID3DataSaverLoader.SavePacManTestData(data);
