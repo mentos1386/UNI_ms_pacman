@@ -123,9 +123,7 @@ public class ID3 {
     }
 
     public static double informationGain(ID3DataTuple[] tuples, ID3Attribute attribute) {
-        double gain = 0;
-
-        gain = calculateEntropy(getLabelRatios(tuples));
+        double gain = calculateEntropy(getLabelRatios(tuples));
 
         ArrayList<ArrayList<ID3DataTuple>> splitData = splitData(tuples, attribute);
 
@@ -178,6 +176,7 @@ public class ID3 {
         }
         return attribute;
     }
+
 
 
 }

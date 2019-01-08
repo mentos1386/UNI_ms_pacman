@@ -26,7 +26,7 @@ public class ID3DataTuple extends DataTuple {
         this.directionToClosestPil = game.directionToClosestPill();
         this.directionToClosestPowerPil = game.directionToClosestPowerPill();
         this.getMoveAwayFromThreat = game.getMoveAwayFromThreat(game.closestGhost());
-        this.isGhostClose = game.isGhostClose(ID3Constants.DISTANCE_TOLERANCE);
+        this.isGhostClose = game.isGhostClose(ID3Constants.DISTANCE_TOLERANCE_GHOSTS);
         this.isPowerPilClose = game.isPowerPillClose(ID3Constants.DISTANCE_TOLERANCE);
         this.distanceToClosestGhost = game.distanceToClosestGhost();
         this.isClosestGhostEdible = game.isGhostEdible(game.closestGhost());

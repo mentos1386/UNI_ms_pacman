@@ -8,7 +8,7 @@ public class ID3LabelHelper {
 
     public static ID3Label fromGameAndMove(Game game, Constants.MOVE move) {
 
-        if (game.isGhostClose(ID3Constants.DISTANCE_TOLERANCE)) {
+        if (game.isGhostClose(ID3Constants.DISTANCE_TOLERANCE_GHOSTS)) {
             if (game.directionToClosestGhost().equals(move))
                 return ID3Label.TOWARD_GHOST;
             return ID3Label.AWAY_FROM_GHOST;
@@ -20,7 +20,7 @@ public class ID3LabelHelper {
             return ID3Label.AWAY_FROM_POWER_PIL;
         }
 
-        if (game.isPowerPillClose(ID3Constants.DISTANCE_TOLERANCE)) {
+        if (game.iPillClose(ID3Constants.DISTANCE_TOLERANCE)) {
             if (game.directionToClosestPill().equals(move))
                 return ID3Label.TOWARD_PIL;
             return ID3Label.AWAY_FROM_PIL;
