@@ -1716,6 +1716,13 @@ public final class Game
 		return getNextMoveTowardsTarget(current, getClosestNodeIndexFromNodeIndex(current, targetsArray, DM.PATH), DM.PATH);
 	}
 
+    public MOVE directionToClosestGhost() {
+        int current = getPacmanCurrentNodeIndex();
+		int closesGhostIndex = getGhostCurrentNodeIndex(closestGhost());
+
+		return getNextMoveTowardsTarget(current, closesGhostIndex, Constants.DM.PATH);
+    }
+
 	public boolean isGhostClose(int distTolerance) {
 		int current = getPacmanCurrentNodeIndex();
 		boolean isGhostClose = false;
@@ -1748,6 +1755,25 @@ public final class Game
         }
         return false;
     }
+
+
+	public boolean iPillClose(int distTolerance) {
+		int currentPacmanNodeIndex = getPacmanCurrentNodeIndex();
+		int[] pIndices = getActivePillsIndices();
+
+		if (pIndices.length==0) {
+			return false;
+		}
+
+		for (int i = 0; i < pIndices.length; i++) {
+			int tempDistance = getShortestPathDistance(currentPacmanNodeIndex,pIndices[i]);
+			if (tempDistance <= distTolerance) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	public GHOST closestGhost() {
 		int current=getPacmanCurrentNodeIndex();

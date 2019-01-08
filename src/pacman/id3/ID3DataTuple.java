@@ -12,6 +12,12 @@ public class ID3DataTuple extends DataTuple {
     public boolean isGhostClose;
     public boolean isPowerPilClose;
     public int distanceToClosestGhost;
+    public ID3Label label;
+
+    public ID3DataTuple(Game game, Constants.MOVE move, ID3Label label) {
+        this(game, move);
+        this.label = label;
+    }
 
     public ID3DataTuple(Game game, Constants.MOVE move) {
         super(game, move);
@@ -35,6 +41,7 @@ public class ID3DataTuple extends DataTuple {
         this.isGhostClose = Boolean.parseBoolean(dataSplit[28]);
         this.isPowerPilClose = Boolean.parseBoolean(dataSplit[29]);
         this.distanceToClosestGhost = Integer.parseInt(dataSplit[30]);
+        this.label = ID3Label.valueOf(dataSplit[31]);
     }
 
 
@@ -48,6 +55,7 @@ public class ID3DataTuple extends DataTuple {
         stringbuilder.append(this.isGhostClose).append(";");
         stringbuilder.append(this.isPowerPilClose).append(";");
         stringbuilder.append(this.distanceToClosestGhost).append(";");
+        stringbuilder.append(this.label).append(";");
 
         return stringbuilder.toString();
     }

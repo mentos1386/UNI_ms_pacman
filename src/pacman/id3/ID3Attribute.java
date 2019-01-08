@@ -2,9 +2,6 @@ package pacman.id3;
 
 public enum ID3Attribute {
 
-	DirectionChosen,
-	pacmanPosition,
-
 	BLINKY_DIST,
 	INKY_DIST,
 	PINKY_DIST,

@@ -35,15 +35,15 @@ public class ID3Controller extends Controller<Constants.MOVE> {
 
         rootNode = ID3.buildTree(trainingTuples, attributes);
 
-        rootNode.PrintPretty("", true);
+        rootNode.preetyPrint("", true);
 
 
         int totalSize = testTuples.length;
         int correctCounter = 0;
 
         for (ID3DataTuple testTuple : testTuples) {
-            Constants.MOVE prediction = predictClassLabel(rootNode, testTuple);
-            if (prediction.equals(testTuple.DirectionChosen)) {
+            ID3Label prediction = predictClassLabel(rootNode, testTuple);
+            if (prediction.equals(testTuple.label)) {
                 correctCounter++;
             }
         }
@@ -52,8 +52,8 @@ public class ID3Controller extends Controller<Constants.MOVE> {
     }
 
 
-    private Constants.MOVE predictClassLabel(ID3Node node, ID3DataTuple tuple) {
-        Constants.MOVE prediction = Constants.MOVE.NEUTRAL;
+    private ID3Label predictClassLabel(ID3Node node, ID3DataTuple tuple) {
+        ID3Label prediction = ID3Label.NEUTRAL;
 
         if (node.getChildrenNodes().isEmpty()) return node.getClassLabel();
 
@@ -73,7 +73,36 @@ public class ID3Controller extends Controller<Constants.MOVE> {
 
 
     public Constants.MOVE getMove(Game game, long timeDue) {
+        ID3Label label = getLabel(game, timeDue);
 
+        switch (label) {
+            case LEFT:
+                return Constants.MOVE.LEFT;
+            case RIGHT:
+                return Constants.MOVE.RIGHT;
+            case UP:
+                return Constants.MOVE.UP;
+            case DOWN:
+                return Constants.MOVE.DOWN;
+
+            case TOWARD_PIL:
+                return game.directionToClosesPill();
+            case TOWARD_POWER_PIL:
+                return game.directionToClosestPowerPill();
+            case TOWARD_GHOST:
+                return game.directionToClosestGhost();
+            case AWAY_FROM_GHOST:
+                return game.directionToClosestGhost().opposite();
+            case AWAY_FROM_PIL:
+                return game.directionToClosesPill().opposite();
+            case AWAY_FROM_POWER_PIL:
+                return game.directionToClosestPowerPill().opposite();
+
+            default: return Constants.MOVE.NEUTRAL;
+        }
+    }
+
+    public ID3Label getLabel(Game game, long timeDue) {
         ID3DataTuple tuple = new ID3DataTuple(game, pacManMove);
 
         return predictClassLabel(rootNode, tuple);

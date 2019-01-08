@@ -1,7 +1,5 @@
 package pacman.id3;
 
-import pacman.game.Constants;
-
 import java.util.ArrayList;
 
 public class ID3Node {
@@ -9,10 +7,7 @@ public class ID3Node {
     private ArrayList<ID3Node> children = new ArrayList<>();
 	private ID3Attribute attribute = null;
 	private Object branchName = null;
-	private Constants.MOVE classLabel;
-
-	public ID3Node() {
-	}
+	private ID3Label classLabel;
 
 	public ArrayList<ID3Node> getChildrenNodes() {
 		return children;
@@ -34,11 +29,11 @@ public class ID3Node {
 		this.attribute = attribute;
 	}
 
-	public void setClassLabel(Constants.MOVE classLabel) {
+	public void setClassLabel(ID3Label classLabel) {
 		this.classLabel = classLabel;
 	}
 	
-	public Constants.MOVE getClassLabel() {
+	public ID3Label getClassLabel() {
 		return classLabel;
 	}
 
@@ -50,13 +45,7 @@ public class ID3Node {
 		this.branchName = branchName;
 	}
 
-	@Override
-	public String toString() {
-		return "Node [childrenNodes=--------" + children + "-------------, branchName=" + branchName + ", classLabel=" + classLabel
-				+ "]";
-	}
-
-	public void PrintPretty(String indent, boolean last)
+	public void preetyPrint(String indent, boolean last)
 	{
 		System.out.print(indent);
 		if (last)
@@ -78,7 +67,7 @@ public class ID3Node {
 		}
 
 		for (int i = 0; i < children.size(); i++) {
-			children.get(i).PrintPretty(indent, i == children.size()-1);
+			children.get(i).preetyPrint(indent, i == children.size()-1);
 		}
 	}
 }

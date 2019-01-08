@@ -1,7 +1,5 @@
 package pacman.id3;
 
-import pacman.game.Constants;
-
 import java.util.ArrayList;
 
 public class ID3 {
@@ -38,7 +36,7 @@ public class ID3 {
     public static ID3Node buildTree(ID3DataTuple[] tuples, ArrayList<ID3Attribute> attributes) {
         ID3Node node = new ID3Node();
 
-        Constants.MOVE majorityClass = getMajorityClassInList(tuples);
+        ID3Label majorityClass = getMajorityClassInList(tuples);
 
         if (doTuplesHaveSameClass(tuples) || attributes.isEmpty()) {
             node.setClassLabel(majorityClass);
@@ -79,11 +77,11 @@ public class ID3 {
     }
 
     public static int[] getLabelFrequency(ID3DataTuple[] tuples) {
-        int[] counter = new int[Constants.MOVE.values().length];
+        int[] counter = new int[ID3Label.values().length];
 
         for (ID3DataTuple tuple : tuples) {
-            for (int j = 0; j < Constants.MOVE.values().length; j++) {
-                if (tuple.DirectionChosen.equals(Constants.MOVE.values()[j])) {
+            for (int j = 0; j < ID3Label.values().length; j++) {
+                if (tuple.label.equals(ID3Label.values()[j])) {
                     counter[j]++;
                     break;
                 }
@@ -92,7 +90,7 @@ public class ID3 {
         return counter;
     }
 
-    public static Constants.MOVE getMajorityClassInList(ID3DataTuple[] tuples) {
+    public static ID3Label getMajorityClassInList(ID3DataTuple[] tuples) {
         int[] counter = getLabelFrequency(tuples);
         int max = counter[0];
         int index = 0;
@@ -102,14 +100,14 @@ public class ID3 {
                 index = i;
             }
         }
-        return Constants.MOVE.values()[index];
+        return ID3Label.values()[index];
     }
 
     public static double[] getLabelRatios(ID3DataTuple[] tuples) {
-        double[] labelRatios = new double[Constants.MOVE.values().length];
+        double[] labelRatios = new double[ID3Label.values().length];
         int[] counter = getLabelFrequency(tuples);
 
-        for (int i = 0; i < Constants.MOVE.values().length; i++) {
+        for (int i = 0; i < ID3Label.values().length; i++) {
             labelRatios[i] = (double) counter[i] / tuples.length;
         }
 
