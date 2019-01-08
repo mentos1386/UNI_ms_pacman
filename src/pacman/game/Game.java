@@ -1805,6 +1805,28 @@ public final class Game
 		return closestGhost;
 	}
 
+	public int closestPowerPill() {
+		int currentPacmanNodeIndex = getPacmanCurrentNodeIndex();
+		int[] ppIndices = getActivePowerPillsIndices();
+
+		int currentClosest = Integer.MAX_VALUE;
+		int pp = -1;
+
+		if (ppIndices.length==0) {
+			return pp;
+		}
+
+		for (int ppIndex : ppIndices) {
+			int tempDistance = getShortestPathDistance(currentPacmanNodeIndex, ppIndex);
+			if (tempDistance < currentClosest) {
+				pp = ppIndex;
+				currentClosest = tempDistance;
+			}
+		}
+
+		return pp;
+	}
+
 	public MOVE getMoveAwayFromThreat(GHOST closestGhost) {
 		int currentPacmanNodeIndex = getPacmanCurrentNodeIndex();
 		int closestGhostNodeIndex = getGhostCurrentNodeIndex(closestGhost);

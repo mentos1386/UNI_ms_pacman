@@ -27,16 +27,16 @@ public class ID3Controller extends Controller<Constants.MOVE> {
 //        attributes.add(ID3Attribute.PINKY_DIST);
 //        attributes.add(ID3Attribute.SUE_DIST);
 //        attributes.add(ID3Attribute.MOVE_AWAY_FROM_THREAT);
-        attributes.add(ID3Attribute.DIRECTION_TO_CLOSEST_PIL);
-        attributes.add(ID3Attribute.DIRECTION_TO_CLOSEST_POWER_PIL);
+//        attributes.add(ID3Attribute.DIRECTION_TO_CLOSEST_PIL);
+//        attributes.add(ID3Attribute.DIRECTION_TO_CLOSEST_POWER_PIL);
         attributes.add(ID3Attribute.IS_GHOST_CLOSE);
         attributes.add(ID3Attribute.IS_POWER_PIL_CLOSE);
-        attributes.add(ID3Attribute.DISTANCE_TO_CLOSEST_GHOST);
+//        attributes.add(ID3Attribute.DISTANCE_TO_CLOSEST_GHOST);
         attributes.add(ID3Attribute.IS_CLOSEST_GHOST_EDIBLE);
 
         rootNode = ID3.buildTree(trainingTuples, attributes);
 
-        rootNode.preetyPrint("", true);
+        rootNode.print("", true);
 
 
         int totalSize = testTuples.length;
@@ -49,7 +49,7 @@ public class ID3Controller extends Controller<Constants.MOVE> {
             }
         }
 
-        System.out.println("Correct/total " + correctCounter + "/" + totalSize + " gives the accuracy: " + (double)correctCounter/totalSize);
+        System.out.println("Correct: " + correctCounter + "; Total: " + totalSize + "; Accuracy: " + (double)correctCounter/totalSize);
     }
 
 
@@ -86,18 +86,18 @@ public class ID3Controller extends Controller<Constants.MOVE> {
             case DOWN:
                 return Constants.MOVE.DOWN;
 
-            case TOWARD_PIL:
+            case TOWARD_PILL:
                 return game.directionToClosestPill();
-            case TOWARD_POWER_PIL:
+            case TOWARD_POWER_PILL:
                 return game.directionToClosestPowerPill();
             case TOWARD_GHOST:
                 return game.directionToClosestGhost();
 
             case AWAY_FROM_GHOST:
                 return game.getMoveAwayFromThreat(game.closestGhost());
-            case AWAY_FROM_PIL:
+            case AWAY_FROM_PILL:
                 return game.directionToClosestPill(true);
-            case AWAY_FROM_POWER_PIL:
+            case AWAY_FROM_POWER_PILL:
                 return game.directionToClosestPowerPill(true);
 
             default: return Constants.MOVE.NEUTRAL;

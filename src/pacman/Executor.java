@@ -88,7 +88,8 @@ public class Executor
 		// Store Testing Data
 		exec.runExperiment(new ID3AutomatedDataCollectorController(false), new RandomGhosts(), 20);
 		//exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), false), new StarterGhosts(), true);
-		// Run AI
+
+		//exec.runExperiment(new ID3Controller(), new StarterGhosts(), 20);
 		exec.runGameTimed(new ID3Controller(),new StarterGhosts(),visual);
 		//exec.runGameTimed(new StarterPacMan(),new StarterGhosts(),visual);
 

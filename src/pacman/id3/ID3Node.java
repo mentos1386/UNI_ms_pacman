@@ -45,29 +45,19 @@ public class ID3Node {
 		this.branchName = branchName;
 	}
 
-	public void preetyPrint(String indent, boolean last)
-	{
-		System.out.print(indent);
-		if (last)
-		{
-			System.out.print("\\-");
-			indent += "  ";
-		}
-		else
-		{
-			System.out.print("|-");
-			indent += "| ";
-		}
-		System.out.print(branchName + "-");
-		if(attribute!=null) {
-			System.out.println(attribute);
-		}
-		else {
-			System.out.println(classLabel);
-		}
 
-		for (int i = 0; i < children.size(); i++) {
-			children.get(i).preetyPrint(indent, i == children.size()-1);
+	public void print(String prefix, boolean isTail) {
+		String name = "";
+		if (classLabel == null) name = attribute.toString();
+		else name = classLabel.toString();
+
+		System.out.println(prefix + (isTail ? "└── " : "├── ") + branchName + ": " + name);
+		for (int i = 0; i < children.size() - 1; i++) {
+			children.get(i).print(prefix + (isTail ? "    " : "│   "), false);
+		}
+		if (children.size() > 0) {
+			children.get(children.size() - 1)
+					.print(prefix + (isTail ?"    " : "│   "), true);
 		}
 	}
 }

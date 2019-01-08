@@ -44,11 +44,10 @@ public class ID3 {
         }
 
         ID3Attribute attribute = attributeSelection(tuples, attributes);
-
         node.setAttribute(attribute);
 
-
         ArrayList<ArrayList<ID3DataTuple>> splitData = splitData(tuples, attribute);
+
         for (int i = 0; i < splitData.size(); i++) {
             ID3Node childNode = new ID3Node();
 
@@ -165,13 +164,12 @@ public class ID3 {
 
     public static ID3Attribute attributeSelection(ID3DataTuple[] tuples, ArrayList<ID3Attribute> attributes) {
         double best = 0;
-        double current = 0;
         ID3Attribute attribute = attributes.get(0);
-        for (int i = 0; i < attributes.size(); i++) {
-            current = informationGain(tuples, attributes.get(i));
+        for (ID3Attribute candidate : attributes) {
+            double current = informationGain(tuples, candidate);
             if (current > best) {
                 best = current;
-                attribute = attributes.get(i);
+                attribute = candidate;
             }
         }
         return attribute;
