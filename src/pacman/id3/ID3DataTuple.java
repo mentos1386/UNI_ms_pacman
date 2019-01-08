@@ -14,6 +14,8 @@ public class ID3DataTuple extends DataTuple {
     public int distanceToClosestGhost;
     public ID3Label label;
     public boolean isClosestGhostEdible;
+    public int howManyGhostsAreClose;
+    public boolean ghostWasEaten;
 
     public ID3DataTuple(Game game, Constants.MOVE move, ID3Label label) {
         this(game, move);
@@ -30,6 +32,8 @@ public class ID3DataTuple extends DataTuple {
         this.isPowerPilClose = game.isPowerPillClose(ID3Constants.DISTANCE_TOLERANCE);
         this.distanceToClosestGhost = game.distanceToClosestGhost();
         this.isClosestGhostEdible = game.isGhostEdible(game.closestGhost());
+        this.howManyGhostsAreClose = game.howManyGhostsAreClose(ID3Constants.DISTANCE_TOLERANCE_GHOSTS);
+        this.ghostWasEaten = game.wasAnyGhostEaten();
     }
 
     public ID3DataTuple(String data) {
@@ -45,6 +49,8 @@ public class ID3DataTuple extends DataTuple {
         this.distanceToClosestGhost = Integer.parseInt(dataSplit[30]);
         this.label = ID3Label.valueOf(dataSplit[31]);
         this.isClosestGhostEdible = Boolean.parseBoolean(dataSplit[32]);
+        this.howManyGhostsAreClose = Integer.parseInt(dataSplit[33]);
+        this.ghostWasEaten = Boolean.parseBoolean(dataSplit[34]);
     }
 
 
@@ -60,6 +66,8 @@ public class ID3DataTuple extends DataTuple {
         stringbuilder.append(this.distanceToClosestGhost).append(";");
         stringbuilder.append(this.label).append(";");
         stringbuilder.append(this.isClosestGhostEdible).append(";");
+        stringbuilder.append(this.howManyGhostsAreClose).append(";");
+        stringbuilder.append(this.ghostWasEaten).append(";");
 
         return stringbuilder.toString();
     }

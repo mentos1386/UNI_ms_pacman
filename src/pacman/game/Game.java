@@ -1852,4 +1852,26 @@ public final class Game
 		return currentClosest;
 	}
 
+	public boolean wasAnyGhostEaten() {
+		for (GHOST ghost : GHOST.values()) {
+			if (wasGhostEaten(ghost))
+				return true;
+		}
+
+		return false;
+	}
+
+	public int howManyGhostsAreClose(int distTolerance) {
+		int found = 0;
+
+		for (GHOST ghost : GHOST.values()) {
+			if (getGhostLairTime(ghost)==0) {
+				int tempDistance = getShortestPathDistance(getPacmanCurrentNodeIndex(), getGhostCurrentNodeIndex(ghost));
+				if (tempDistance < distTolerance) found ++;
+			}
+		}
+
+		return found;
+	}
+
 }

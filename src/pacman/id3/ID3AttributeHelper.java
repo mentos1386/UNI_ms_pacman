@@ -14,6 +14,7 @@ public class ID3AttributeHelper {
             case IS_GHOST_CLOSE:
             case IS_POWER_PIL_CLOSE:
             case IS_CLOSEST_GHOST_EDIBLE:
+            case GHOST_WAS_EATEN:
                 return 2;
 
             // Discrete tags
@@ -23,6 +24,10 @@ public class ID3AttributeHelper {
             case SUE_DIST:
             case DISTANCE_TO_CLOSEST_GHOST:
                 return ID3DataTuple.DiscreteTag.values().length;
+
+            // Other
+            case HOW_MANY_GHOSTS_CLOSE:
+                return 5;
 
             // Moves
             case DIRECTION_TO_CLOSEST_PIL:
@@ -47,6 +52,7 @@ public class ID3AttributeHelper {
             case IS_GHOST_CLOSE:
             case IS_POWER_PIL_CLOSE:
             case IS_CLOSEST_GHOST_EDIBLE:
+            case GHOST_WAS_EATEN:
                 values[0] = String.valueOf(true);
                 values[1] = String.valueOf(false);
                 return values;
@@ -59,7 +65,15 @@ public class ID3AttributeHelper {
             case DISTANCE_TO_CLOSEST_GHOST:
                 return ID3DataTuple.DiscreteTag.values();
 
-            // Moves
+            case HOW_MANY_GHOSTS_CLOSE:
+                values[0] = String.valueOf(0);
+                values[1] = String.valueOf(1);
+                values[2] = String.valueOf(2);
+                values[3] = String.valueOf(3);
+                values[4] = String.valueOf(4);
+                return values;
+
+                // Moves
             case DIRECTION_TO_CLOSEST_PIL:
             case DIRECTION_TO_CLOSEST_POWER_PIL:
             case MOVE_AWAY_FROM_THREAT:
@@ -87,6 +101,8 @@ public class ID3AttributeHelper {
                 return String.valueOf(dataTuple.isPowerPilClose);
             case IS_CLOSEST_GHOST_EDIBLE:
                 return String.valueOf(dataTuple.isClosestGhostEdible);
+            case GHOST_WAS_EATEN:
+                return String.valueOf(dataTuple.ghostWasEaten);
 
             case BLINKY_DIST:
                 return dataTuple.discretizeDistance(dataTuple.blinkyDist);
@@ -98,6 +114,8 @@ public class ID3AttributeHelper {
                 return dataTuple.discretizeDistance(dataTuple.sueDist);
             case DISTANCE_TO_CLOSEST_GHOST:
                 return dataTuple.discretizeDistance(dataTuple.distanceToClosestGhost);
+            case HOW_MANY_GHOSTS_CLOSE:
+                return String.valueOf(dataTuple.howManyGhostsAreClose);
 
             // Moves
             case DIRECTION_TO_CLOSEST_PIL:

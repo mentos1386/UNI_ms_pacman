@@ -33,6 +33,8 @@ public class ID3Controller extends Controller<Constants.MOVE> {
         attributes.add(ID3Attribute.IS_POWER_PIL_CLOSE);
 //        attributes.add(ID3Attribute.DISTANCE_TO_CLOSEST_GHOST);
         attributes.add(ID3Attribute.IS_CLOSEST_GHOST_EDIBLE);
+        attributes.add(ID3Attribute.GHOST_WAS_EATEN);
+        attributes.add(ID3Attribute.HOW_MANY_GHOSTS_CLOSE);
 
         rootNode = ID3.buildTree(trainingTuples, attributes);
 

@@ -13,6 +13,7 @@ import java.util.Random;
 import pacman.controllers.Controller;
 import pacman.controllers.HumanController;
 import pacman.controllers.KeyBoardInput;
+import pacman.controllers.examples.AggressiveGhosts;
 import pacman.controllers.examples.RandomGhosts;
 import pacman.controllers.examples.StarterPacMan;
 import pacman.id3.ID3AutomatedDataCollectorController;
@@ -86,8 +87,8 @@ public class Executor
 		//exec.runExperiment(new ID3AutomatedDataCollectorController(true), new RandomGhosts(), 5);
 		exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), true), new StarterGhosts(), true);
 		// Store Testing Data
-		exec.runExperiment(new ID3AutomatedDataCollectorController(false), new RandomGhosts(), 20);
-		//exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), false), new StarterGhosts(), true);
+		//exec.runExperiment(new ID3AutomatedDataCollectorController(false), new RandomGhosts(), 5);
+		exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), false), new StarterGhosts(), true);
 
 		//exec.runExperiment(new ID3Controller(), new StarterGhosts(), 20);
 		//exec.runExperiment(new ID3AutomatedDataCollectorController(false), new RandomGhosts(), 20);
@@ -95,6 +96,7 @@ public class Executor
 		// Run AI
 		exec.runGameTimed(new ID3Controller(),new StarterGhosts(),visual);
 		//exec.runGameTimed(new StarterPacMan(),new StarterGhosts(),visual);
+		exec.runExperiment(new ID3Controller(), new StarterGhosts(), 20);
 
 	}
 	
