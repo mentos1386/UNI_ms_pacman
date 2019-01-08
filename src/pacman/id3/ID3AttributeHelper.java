@@ -13,6 +13,7 @@ public class ID3AttributeHelper {
             case IS_BLINKY_EDIBLE:
             case IS_GHOST_CLOSE:
             case IS_POWER_PIL_CLOSE:
+            case IS_CLOSEST_GHOST_EDIBLE:
                 return 2;
 
             // Discrete tags
@@ -45,6 +46,7 @@ public class ID3AttributeHelper {
             case IS_BLINKY_EDIBLE:
             case IS_GHOST_CLOSE:
             case IS_POWER_PIL_CLOSE:
+            case IS_CLOSEST_GHOST_EDIBLE:
                 values[0] = String.valueOf(true);
                 values[1] = String.valueOf(false);
                 return values;
@@ -83,6 +85,8 @@ public class ID3AttributeHelper {
                 return String.valueOf(dataTuple.isGhostClose);
             case IS_POWER_PIL_CLOSE:
                 return String.valueOf(dataTuple.isPowerPilClose);
+            case IS_CLOSEST_GHOST_EDIBLE:
+                return String.valueOf(dataTuple.isClosestGhostEdible);
 
             case BLINKY_DIST:
                 return dataTuple.discretizeDistance(dataTuple.blinkyDist);

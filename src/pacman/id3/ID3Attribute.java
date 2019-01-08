@@ -21,4 +21,6 @@ public enum ID3Attribute {
 
 	IS_GHOST_CLOSE,
 	IS_POWER_PIL_CLOSE,
+
+	IS_CLOSEST_GHOST_EDIBLE,
 }

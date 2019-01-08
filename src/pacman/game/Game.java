@@ -1667,8 +1667,11 @@ public final class Game
 		return caches[mazeIndex].getPathDistanceFromA2B(fromNodeIndex,toNodeIndex,lastMoveMade);
 	}
 
+    public MOVE directionToClosestPill() {
+	    return directionToClosestPill(false);
+    }
 
-	public MOVE directionToClosesPill() {
+    public MOVE directionToClosestPill(boolean away) {
 		int current = getPacmanCurrentNodeIndex();
 
 		int[] pills = getPillIndices();
@@ -1676,35 +1679,41 @@ public final class Game
 
 		ArrayList<Integer> targets = new ArrayList<Integer>();
 
-		for (int i=0; i<pills.length; i++) //check which pills are available
+		for (int i=0; i<pills.length; i++)
 			if(isPillStillAvailable(i))
 				targets.add(pills[i]);
 
-		for (int i=0; i<powerPills.length; i++)	//check with power pills are available
+		for (int i=0; i<powerPills.length; i++)
 			if (isPowerPillStillAvailable(i))
 				targets.add(powerPills[i]);
 
-		int[] targetsArray = new int[targets.size()]; //convert from ArrayList to array
+		int[] targetsArray = new int[targets.size()];
 
 		for (int i=0; i<targetsArray.length; i++)
 			targetsArray[i] = targets.get(i);
 
-		//return the next direction once the closest target has been identified
+		if (away)
+			return getNextMoveAwayFromTarget(current, getClosestNodeIndexFromNodeIndex(current,targetsArray,DM.PATH),DM.PATH);
+
 		return getNextMoveTowardsTarget(current, getClosestNodeIndexFromNodeIndex(current,targetsArray,DM.PATH),DM.PATH);
 	}
 
 	public MOVE directionToClosestPowerPill() {
+	    return directionToClosestPowerPill(false);
+    }
+
+	public MOVE directionToClosestPowerPill(boolean away) {
 		int current=getPacmanCurrentNodeIndex();
 
 		int[] powerPills=getPowerPillIndices();
 
 		ArrayList<Integer> targets=new ArrayList<Integer>();
 
-		for (int i=0; i<powerPills.length; i++)	//check with power pills are available
+		for (int i=0; i<powerPills.length; i++)
 			if (isPowerPillStillAvailable(i))
 				targets.add(powerPills[i]);
 
-		int[] targetsArray = new int[targets.size()]; //convert from ArrayList to array
+		int[] targetsArray = new int[targets.size()];
 
 		for (int i=0; i<targetsArray.length; i++)
 			targetsArray[i] = targets.get(i);
@@ -1712,7 +1721,10 @@ public final class Game
 
 		if (targetsArray.length == 0) return this.getPacmanLastMoveMade();
 
-		//return the next direction once the closest target has been identified
+
+		if (away)
+			return getNextMoveAwayFromTarget(current, getClosestNodeIndexFromNodeIndex(current, targetsArray, DM.PATH), DM.PATH);
+
 		return getNextMoveTowardsTarget(current, getClosestNodeIndexFromNodeIndex(current, targetsArray, DM.PATH), DM.PATH);
 	}
 
