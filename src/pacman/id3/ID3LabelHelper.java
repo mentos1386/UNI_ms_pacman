@@ -27,6 +27,7 @@ public class ID3LabelHelper {
         }
 
         switch (move) {
+/*
             case DOWN:
                 return ID3Label.DOWN;
             case UP:
@@ -35,6 +36,7 @@ public class ID3LabelHelper {
                 return ID3Label.LEFT;
             case RIGHT:
                 return ID3Label.RIGHT;
+*/
 
             default:
                 return ID3Label.NEUTRAL;

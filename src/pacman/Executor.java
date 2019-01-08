@@ -83,11 +83,11 @@ public class Executor
 		//exec.runGameTimed(new DataCollectorController(new KeyBoardInput()),new StarterGhosts(),visual);
 
 		// Store Training Data
-		//exec.runExperiment(new ID3AutomatedDataCollectorController(true), new RandomGhosts(), 5);
-		exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), true), new StarterGhosts(), true);
+		exec.runExperiment(new ID3AutomatedDataCollectorController(true), new RandomGhosts(), 5);
+		//exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), true), new StarterGhosts(), true);
 		// Store Testing Data
-		//exec.runExperiment(new ID3AutomatedDataCollectorController(false), new RandomGhosts(), 20);
-		exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), false), new StarterGhosts(), true);
+		exec.runExperiment(new ID3AutomatedDataCollectorController(false), new RandomGhosts(), 20);
+		//exec.runGameTimed(new ID3DataCollectorController(new KeyBoardInput(), false), new StarterGhosts(), true);
 		// Run AI
 		exec.runGameTimed(new ID3Controller(),new StarterGhosts(),visual);
 		//exec.runGameTimed(new StarterPacMan(),new StarterGhosts(),visual);
